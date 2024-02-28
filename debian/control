@@ -3,7 +3,7 @@ Section: admin
 Priority: optional
 Maintainer: Artyom A Anikeev <anikeev@ut.mephi.ru>
 Uploaders: Barak A. Pearlmutter <bap@debian.org>, Dmitry Yu Okunev <dyokunev@ut.mephi.ru>
-Build-Depends: debhelper-compat (= 13),
+Build-Depends: dpkg-dev (>= 1.22.5), debhelper-compat (= 13),
 	       libglib2.0-dev (>= 2.0.0),
 	       libcap-dev
 Standards-Version: 4.5.1
@@ -24,7 +24,10 @@ Description: live sync tool based on inotify, written in GNU C
  features as separate queue for big files, regex file filter,
  multi-threading.
 
-Package: libclsync0
+Package: libclsync0t64
+Provides: ${t64:Provides}
+Replaces: libclsync0
+Breaks: libclsync0 (<< ${source:Version})
 Section: libs
 Architecture: any
 Multi-Arch: same
@@ -44,7 +47,7 @@ Section: libdevel
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${shlibs:Depends}, ${misc:Depends}, libclsync0 (= ${binary:Version})
+Depends: ${shlibs:Depends}, ${misc:Depends}, libclsync0t64 (= ${binary:Version})
 Description: development files for libclsync
  Clsync recursively watches for source directory and executes external
  program to sync the changes. Clsync is adapted to use together with rsync.
