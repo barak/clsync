@@ -1,3 +1,10 @@
+clsync (0.4.5-2.2) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Fix FTBFS with GCC 15. (Closes: #1096443)
+
+ -- Adrian Bunk <bunk@debian.org>  Sat, 20 Sep 2025 21:55:06 +0300
+
 clsync (0.4.5-2.1) unstable; urgency=medium
 
   * Non-maintainer upload.

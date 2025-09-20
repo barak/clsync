@@ -1,0 +1,24 @@
+Description: Fix FTBFS with GCC 15
+Author: Adrian Bunk <bunk@debian.org>
+Bug-Debian: https://bugs.debian.org/1096443
+
+--- clsync-0.4.5.orig/main.c
++++ clsync-0.4.5/main.c
+@@ -427,7 +427,7 @@ int parent_isalive()
+ 	return 1;
+ }
+ 
+-void child_sigchld()
++void child_sigchld(int sig)
+ {
+ 	if ( getppid() != 1 )
+ 		return;
+@@ -437,7 +437,7 @@ void child_sigchld()
+ 	return;
+ }
+ 
+-int sethandler_sigchld ( void ( *handler ) () )
++int sethandler_sigchld ( void ( *handler ) (int) )
+ {
+ 	struct sigaction sa;
+ 	sa.sa_handler = handler;
