@@ -1,0 +1,15 @@
+[Unit]
+Description=clsync (live file syncer)
+Documentation=man:clsync(1)
+After=local-fs.target remote-fs.target network.target
+
+[Service]
+Type=exec
+EnvironmentFile=-/etc/default/clsync
+ExecStart=/usr/bin/clsync -b0 -Ystderr $CLSYNC_ARGS
+ExecReload=/bin/kill -HUP $MAINPID
+IOSchedulingClass=idle
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+clsync (0.4.5-2.3) unstable; urgency=medium
+
+  clsync now ships a native systemd service, which replaces
+  /etc/init.d/clsync under systemd. If you had set CLSYNC_ENABLE=true, it no
+  longer has any effect and clsync will not start at boot. Run "systemctl
+  enable --now clsync" instead.
+
+  CLSYNC_ARGS is still used. CLSYNC_IONICE_CLASS is not, because the service
+  always runs with IOSchedulingClass=idle, which was the init script's
+  default.
+
+ -- Nadzeya Hutsko <nadzeya@debian.org>  Mon, 21 Sep 2026 13:04:38 +0200

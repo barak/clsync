@@ -1,13 +1,16 @@
 
-# === non-systemd ===
+# === clsync.service, and /etc/init.d/clsync under sysvinit ===
 
-# clsync is not enabled by default. To enable it replace "false" with "true":
+# CLSYNC_ENABLE only has an effect under sysvinit. Under systemd, run
+# "systemctl enable clsync" instead.
 CLSYNC_ENABLE=false
+# CLSYNC_IONICE_CLASS only has an effect under sysvinit. clsync.service
+# always runs with IOSchedulingClass=idle.
 CLSYNC_IONICE_CLASS=3
-# Example:
+# Example
 CLSYNC_ARGS='-M rsyncdirect --output=syslog -L /dev/shm/clsync -x 23 -W /var/www -S /usr/bin/rsync -D /mnt/backup'
 
-# === systemd ===
+# === clsync@.service, one instance per config block ===
 
 CLSYNC_ARGS_SYSTEMD='-b0 -Ystderr'
 # Example:

@@ -1,3 +1,17 @@
+clsync (0.4.5-2.3) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Add a native systemd service, as systemd-sysv-generator was removed
+    upstream in systemd v260 (Closes: #1148315)
+    - The service is not enabled or started on install, and the init script
+      is no longer started on install either, so that the CLSYNC_ENABLE gate
+      is preserved.
+    - CLSYNC_IONICE_CLASS has no native equivalent, as IOSchedulingClass=
+      does not expand environment variables. The service uses idle, which
+      was the init script's default.
+
+ -- Nadzeya Hutsko <nadzeya@debian.org>  Mon, 21 Sep 2026 13:10:18 +0200
+
 clsync (0.4.5-2.2) unstable; urgency=medium
 
   * Non-maintainer upload.

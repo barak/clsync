@@ -11,6 +11,16 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 override_dh_auto_configure:
 	dh_auto_configure -- --enable-socket --enable-socket-library --enable-highload-locks --disable-seccomp
 
+# clsync has no usable default configuration, so it must not be started on
+# install. The init script gated itself on CLSYNC_ENABLE and exited early.
+# Once a native unit exists, invoke-rc.d resolves to the unit instead of the
+# script and would bypass that gate, so suppress the start here too.
+override_dh_installinit:
+	dh_installinit --no-start
+
+override_dh_installsystemd:
+	dh_installsystemd --no-enable --no-start
+
 execute_after_dh_auto_install:
 	sed --in-place "/dependency_libs/ s/'.*'/''/" $$(find debian/tmp -name '*.la')
 	-rm --verbose debian/tmp/usr/share/doc/clsync/LICENSE
