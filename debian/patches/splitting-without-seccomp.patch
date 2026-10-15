@@ -3,7 +3,7 @@ Date: Thu, 15 Oct 2026 14:57:45 +0100
 Subject: Accept --splitting when built without seccomp
 
 Bug-Debian: https://bugs.debian.org/975437
-Forwarded: no
+Forwarded: https://github.com/clsync/clsync/pull/183
 Last-Update: 2026-10-15
 
 The SPLITTING option handler was inside the SECCOMP_SUPPORT conditional,
