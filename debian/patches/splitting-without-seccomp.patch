@@ -1,0 +1,66 @@
+From: "Barak A. Pearlmutter" <bap@debian.org>
+Date: Thu, 15 Oct 2026 14:57:45 +0100
+Subject: Accept --splitting when built without seccomp
+
+Bug-Debian: https://bugs.debian.org/975437
+Forwarded: no
+Last-Update: 2026-10-15
+
+The SPLITTING option handler was inside the SECCOMP_SUPPORT conditional,
+although the --splitting long option itself is only conditional on
+CAPABILITIES_SUPPORT.  When built with --disable-seccomp (as Debian does,
+since the hand-written seccomp filter is not portable) the option fell
+through to the generic numeric handler, so "--splitting=process" failed with
+'argument "process" can't be parsed as a number'.  Restrict the
+SECCOMP_SUPPORT conditional to --secure-splitting, which really does need
+seccomp, and note in the manpage which options require seccomp support.
+Last-Update: 2026-10-15
+---
+ main.c            | 4 ++--
+ man/man1/clsync.1 | 4 +++-
+ 2 files changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/main.c b/main.c
+index 068390b..b1807f7 100644
+--- a/main.c
++++ b/main.c
+@@ -1193,6 +1193,8 @@ __extension__ static int parse_parameter ( ctx_t *ctx_p, uint16_t param_id, char
+ 				arg = "process";
+ 			}
+ 
++# endif
++
+ 		case SPLITTING: {
+ 				char *value, *arg_orig = arg;
+ 
+@@ -1234,8 +1236,6 @@ __extension__ static int parse_parameter ( ctx_t *ctx_p, uint16_t param_id, char
+ 				break;
+ 			}
+ 
+-# endif
+-
+ 		case CAP_PRESERVE: {
+ 				char *subopts = arg;
+ 				ctx_p->caps  = 0;
+diff --git a/man/man1/clsync.1 b/man/man1/clsync.1
+index 070de15..7096a93 100644
+--- a/man/man1/clsync.1
++++ b/man/man1/clsync.1
+@@ -1239,6 +1239,8 @@ Is set to "clsync/%PID%" by default.
+ 
+ .B \-\-secure\-splitting
+ .RS
++.B [Linux only, requires seccomp support]
++
+ Implies "\-\-splitting=process \-\-check\-execvp\-arguments \-\-seccomp\-filter
+ \-\-forbid\-devices"
+ .RE
+@@ -1522,7 +1524,7 @@ Is not set by default.
+ 
+ .B \-\-seccomp\-filter
+ .RS
+-.B [Linux only]
++.B [Linux only, requires seccomp support]
+ 
+ Use
+ .B seccomp

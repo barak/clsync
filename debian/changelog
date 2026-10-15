@@ -1,3 +1,13 @@
+clsync (0.4.5-3) unstable; urgency=medium
+
+  * Policy 4.7.4
+  * Accept --splitting=process|thread|off when built without seccomp;
+    note in manpage that --secure-splitting and --seccomp-filter require
+    seccomp support, which remains disabled (closes: #975437)
+  * Debhelper compat 14, remove unnecessary substvars
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Thu, 15 Oct 2026 14:56:52 +0100
+
 clsync (0.4.5-2.3) unstable; urgency=medium
 
   * Non-maintainer upload.

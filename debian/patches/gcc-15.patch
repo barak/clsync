@@ -1,9 +1,16 @@
-Description: Fix FTBFS with GCC 15
-Author: Adrian Bunk <bunk@debian.org>
-Bug-Debian: https://bugs.debian.org/1096443
+From: Adrian Bunk <bunk@debian.org>
+Date: Thu, 15 Oct 2026 14:57:45 +0100
+Subject: Fix FTBFS with GCC 15
 
---- clsync-0.4.5.orig/main.c
-+++ clsync-0.4.5/main.c
+Bug-Debian: https://bugs.debian.org/1096443
+---
+ main.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/main.c b/main.c
+index 8ecf99c..068390b 100644
+--- a/main.c
++++ b/main.c
 @@ -427,7 +427,7 @@ int parent_isalive()
  	return 1;
  }
